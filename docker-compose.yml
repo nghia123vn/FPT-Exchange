@@ -1,0 +1,93 @@
+version: '3.4'
+
+networks:
+  ocelot_network:
+    driver: bridge
+
+services:
+  
+  ocelot.products:
+    image: ${DOCKER_REGISTRY-}productapi
+    hostname: ocelot.products
+    build:
+      context: .
+      dockerfile: Product_API/Dockerfile
+    networks:
+      - ocelot_network
+
+  ocelot.users:
+    image: ${DOCKER_REGISTRY-}userapi
+    hostname: ocelot.users
+    build:
+      context: .
+      dockerfile: FPT_Exchange_API/Dockerfile
+    networks:
+      - ocelot_network
+    links:
+      - ocelot.wallets
+
+  ocelot.wallets:
+    image: ${DOCKER_REGISTRY-}walletapi
+    hostname: ocelot.wallets
+    build:
+      context: .
+      dockerfile: Wallet_API/Dockerfile
+    networks:
+      - ocelot_network
+
+  ocelot.gateway:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: Gateway_API/Dockerfile
+    links:
+      - ocelot.products
+      - ocelot.users
+      - ocelot.wallets
+    depends_on:
+      - ocelot.products
+      - ocelot.users
+      - ocelot.wallets
+    networks:
+      - ocelot_network
+  redis:
+    image: redis
+    hostname: redis
+    networks:
+      - ocelot_network
+
+  reverse-proxy:
+    image: jwilder/nginx-proxy
+    depends_on:
+      - ocelot.gateway
+      - service.oauth
+    links:
+      - ocelot.wallets
+    networks:
+      - ocelot_network
+  service.oauth:
+    image: ${DOCKER_REGISTRY-}serviceoauth
+    build:
+      context: .
+      dockerfile: Service.OAuth/Dockerfile
+    networks:
+      - ocelot_network
+
+  ocelot.payments:
+    image: ${DOCKER_REGISTRY-}paymentmethodapi
+    hostname: ocelot.payments
+    build:
+      context: .
+      dockerfile: PaymentMethod_API/Dockerfile
+    networks:
+      - ocelot_network
+
+
+  service.notify:
+    image: ${DOCKER_REGISTRY-}servicenotify
+    build:
+      context: .
+      dockerfile: Service.Notify/Dockerfile
+    networks:
+      - ocelot_network
+

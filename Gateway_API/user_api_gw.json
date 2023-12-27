@@ -1,0 +1,866 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/users/signin-google", //real api
+      "DownstreamScheme": "http",
+
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.users",
+          "Port": 3002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/google-service", //midleware api
+      "UpstreamHttpMethod": [ "POST" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [], //định nghia client
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+
+      "SwaggerKey": "UserAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/users", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.users",
+          "Port": 3002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users", //midleware api
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamQueryString": "name={name}&email={email}",
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "UserAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/register-staffs", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.users",
+          "Port": 3002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/staff/create", //midleware api
+      "UpstreamHttpMethod": [ "POST" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "UserAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/change-avatar", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.users",
+          "Port": 3002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/update-avatar", //midleware api
+      "UpstreamHttpMethod": [ "PUT" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "UserAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/staffs/{id}", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.users",
+          "Port": 3002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/staffs/{id}", //midleware api
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "UserAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.users",
+          "Port": 3002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/login", //midleware api
+      "UpstreamHttpMethod": [ "POST" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "UserAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/current-staff", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.users",
+          "Port": 3002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/profile", //midleware api
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "UserAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/wallet/kz9ijalm6067ACxopm", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.wallets",
+          "Port": 3003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/wallet/", //midleware api
+      "UpstreamHttpMethod": [ "POST" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "WalletAPI"
+    },
+
+
+    //=========================Payment=====================================
+    {
+      "DownstreamPathTemplate": "/api/payment-methods/momo", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.payments",
+          "Port": 3004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/payments/momo", //midleware api
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //"RouteClaimsRequirement": {
+      //  "Role":  "thisidrole"
+      //},
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "PaymentAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/payment-methods/momo/return/{id}", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.payments",
+          "Port": 3004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/payments/momo/callback/{id}", //midleware api
+      "UpstreamHttpMethod": [ "GET" ],
+      "UseQueryString": true,
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "PaymentAPI"
+    },
+    //=====================Product============================================================
+    {
+      "DownstreamPathTemplate": "/api/products/seller", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/sellers", //midleware api
+      "UpstreamHttpMethod": [ "GET" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/inventory", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/inventorys", //midleware api
+      "UpstreamHttpMethod": [ "GET" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/seller/product-in-month", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/seller/product-in-month", //midleware api
+      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamQueryString": "startDate={startDate}&endDate={endDate}",
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/inventory/product-in-month",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/inventory/product-in-month",
+      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamQueryString": "startDate={startDate}&endDate={endDate}",
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products",
+      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamQueryString": "name={Name}&categoryName={CategoryName}&maxPrice={MaxPrice}&minPrice={MinPrice}&page=1",
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/create",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/create",
+      "UpstreamHttpMethod": [ "POST" ],
+      "UpstreamQueryString": "Name={Name}&Description={Description}&Price={Price}&StationID={StationID}&CategoryId={CategoryId}&sellerID={sellerID}",
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "3d2c1859-4e4f-4cfa-9efb-afbcd6a7a17d"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/{id}",
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "3d2c1859-4e4f-4cfa-9efb-afbcd6a7a17d"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/products/Buyer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/buyer",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/products/selling",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/selling",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/products/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    //=====================Orders============================================================
+    {
+      //get orders status processing
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/processing",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "3d2c1859-4e4f-4cfa-9efb-afbcd6a7a17d"
+      },
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      //get orders status success
+      "DownstreamPathTemplate": "/api/orders/success",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/success",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "3d2c1859-4e4f-4cfa-9efb-afbcd6a7a17d"
+      },
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      //create order customer role
+      "DownstreamPathTemplate": "/api/orders/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/create-order/{id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "61b99726-8e73-4a0c-be55-c7855bb0a0c3"
+      },
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      //confirm order staff role
+      "DownstreamPathTemplate": "/api/orders/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/confirm-order/{id}",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "3d2c1859-4e4f-4cfa-9efb-afbcd6a7a17d"
+      },
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      //reject order staff role
+      "DownstreamPathTemplate": "/api/orders/reject/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/reject-order/{id}",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "3d2c1859-4e4f-4cfa-9efb-afbcd6a7a17d"
+      },
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      //cancel order customer role
+      "DownstreamPathTemplate": "/api/orders/cancel/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/cancel-order/{id}",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "61b99726-8e73-4a0c-be55-c7855bb0a0c3"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+    {
+      //get processing orders of current customer
+      "DownstreamPathTemplate": "/api/orders/customer/processing",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/current-customer/processing",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "61b99726-8e73-4a0c-be55-c7855bb0a0c3"
+      },
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+
+
+    //==========================Categoryes==================================================================
+    {
+      "DownstreamPathTemplate": "/api/categories",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/category/categories",
+      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamQueryString": "name={Name}",
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/categories/{id}", //real api
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/category/categories/{id}", //midleware api
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/categories/create",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ocelot.products",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/category/categories/Create",
+      "UpstreamHttpMethod": [ "POST" ],
+      "UpstreamQueryString": "name={Name}",
+      "AddHeadersToRequest": {
+        "Content-Type": "application/json"
+      },
+      "RateLimitOptions": {
+        "ClientWhilelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      },
+      "SwaggerKey": "ProductAPI"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "UserAPI",
+      "Config": [
+        {
+          "Name": "Api user",
+          "Version": "v1",
+          "Url": "http://ocelot.users:3002/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "WalletAPI",
+      "Config": [
+        {
+          "Name": "Api wallet",
+          "Version": "v1",
+          "Url": "http://ocelot.wallets:3003/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "ProductAPI",
+      "Config": [
+        {
+          "Name": "Api product",
+          "Version": "v1",
+          "Url": "http://ocelot.products:3001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "PaymentAPI",
+      "Config": [
+        {
+          "Name": "Api payment",
+          "Version": "v1",
+          "Url": "http://ocelot.payments:3004/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+
+  }
+
+}

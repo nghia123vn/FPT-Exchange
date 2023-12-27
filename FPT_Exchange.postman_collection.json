@@ -1,0 +1,1018 @@
+{
+	"info": {
+		"_postman_id": "3eb7bf83-0a86-4d14-a86b-bfa05c87dc36",
+		"name": "FPT_Exchange",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21136267"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "LoginByGoogle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/google-service",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"google-service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StaffLogin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"staffAccessToken\", jsonData.accessToken);\r",
+									"\r",
+									"pm.test(\"Status code is 200 login success\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"tantrung.staff@gmail.com\",\r\n  \"password\": \"123456\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44336/api/users/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"customerAccessToken\", jsonData.accessToken);\r",
+									"\r",
+									"pm.test(\"Status code is 200 login success\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"nghiabht123vn@gmail.com\",\r\n  \"password\": \"123vn123\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{customerAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/users/profile",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Staff Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"nghia123\",\r\n  \"email\": \"nghiabht123vn@gmail.com\",\r\n  \"password\": \"123vn123\",\r\n  \"stationId\": \"6ed3195e-8a08-4fc2-b46a-b22da4f0d89d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44336/api/users/staff/create",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"users",
+								"staff",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Avatar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/123vn/OneDrive/Hình ảnh/Dan_2-24-2021_4545804.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44336/api/users/update-avatar",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"users",
+								"update-avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_Staff_Account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/staffs/39f8c764-4ac1-4044-b828-1b49b3d1fbc8",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"staffs",
+								"39f8c764-4ac1-4044-b828-1b49b3d1fbc8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "nghia123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"abcd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44336/api/staffs/274e1578-71cf-48de-a3a9-c675db53897f",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"staffs",
+								"274e1578-71cf-48de-a3a9-c675db53897f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "CreateProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{staffAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "Đai Võ 5",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "Vovinam",
+									"type": "text"
+								},
+								{
+									"key": "Price",
+									"value": "1200",
+									"type": "text"
+								},
+								{
+									"key": "StationID",
+									"value": "6ed3195e-8a08-4fc2-b46a-b22da4f0d89d",
+									"type": "text"
+								},
+								{
+									"key": "CategoryId",
+									"value": "888c2541-04eb-4fe9-b883-e8092fceb1e9",
+									"type": "text"
+								},
+								{
+									"key": "sellerID",
+									"value": "f1783d1f-acb5-45e7-a3e1-41e1a7033193",
+									"type": "text"
+								},
+								{
+									"key": "ImageProducts",
+									"type": "file",
+									"src": "/E:/downloads/dai-vo-vovinam-anh-dai-dien.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44336/api/products/create",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListProduct",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "name",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "categoryName",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "maxPrice",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "minPrice",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "page",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44336/api/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{staffAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/products/1a37bdfb-3228-42f8-a979-f83c24399668",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"products",
+								"1a37bdfb-3228-42f8-a979-f83c24399668"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{staffAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "price",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "stationID",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "imageProducts",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "statusId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44336/api/products/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/products/1a37bdfb-3228-42f8-a979-f83c24399668",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"products",
+								"1a37bdfb-3228-42f8-a979-f83c24399668"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Buyer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ik5ndXnhu4VuIFThuqVuIFRydW5nIiwiUm9sZSI6IjNkMmMxODU5LTRlNGYtNGNmYS05ZWZiLWFmYmNkNmE3YTE3ZCIsInVzZXJJZCI6IjM5ZjhjNzY0LTRhYzEtNDA0NC1iODI4LTFiNDliM2QxZmJjOCIsIm5iZiI6MTY5MDM1Njk4NCwiZXhwIjoxNjkwMzYwNTg0LCJpYXQiOjE2OTAzNTY5ODR9.DhAnf_BL9PNoa4F6jSN5_7P5f5IGJ6wtGbQ33wrFCjnjORmtldEuNe6eSW2r75usU8vo94tAm128iGiiqbyCSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/products/buyer",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"products",
+								"buyer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Seller",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ik5ndXnhu4VuIFThuqVuIFRydW5nIiwiUm9sZSI6IjNkMmMxODU5LTRlNGYtNGNmYS05ZWZiLWFmYmNkNmE3YTE3ZCIsInVzZXJJZCI6IjM5ZjhjNzY0LTRhYzEtNDA0NC1iODI4LTFiNDliM2QxZmJjOCIsIm5iZiI6MTY5MDM1Njk4NCwiZXhwIjoxNjkwMzYwNTg0LCJpYXQiOjE2OTAzNTY5ODR9.DhAnf_BL9PNoa4F6jSN5_7P5f5IGJ6wtGbQ33wrFCjnjORmtldEuNe6eSW2r75usU8vo94tAm128iGiiqbyCSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/products/selling",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"products",
+								"selling"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5naGlhMTIzIiwiUm9sZSI6IjNkMmMxODU5LTRlNGYtNGNmYS05ZWZiLWFmYmNkNmE3YTE3ZCIsInVzZXJJZCI6ImYxNzgzZDFmLWFjYjUtNDVlNy1hM2UxLTQxZTFhNzAzMzE5MyIsIm5iZiI6MTY5MDM0MjY5MywiZXhwIjoxNjkwMzQ2MjkyLCJpYXQiOjE2OTAzNDI2OTN9.3BDXvBbeJ1-DvF1_e5MxDX9jZEk2nr_o6eJH2Q3e4aDPWQXaqTj_wxzpEU_sDEOt4QWYQU8jyK5ZErluxiV5lA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "CreateOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{customerAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/create-order/2c1a8b4e-d158-4fd3-9f23-1d8be2ffd100",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"create-order",
+								"2c1a8b4e-d158-4fd3-9f23-1d8be2ffd100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order to Confirm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{staffAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/processing",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"processing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ConfirmOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{staffAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/confirm-order/80e138b5-096f-4222-98dd-f84a2b164e82",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"confirm-order",
+								"80e138b5-096f-4222-98dd-f84a2b164e82"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RejectOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{staffAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/reject-order/ffb02847-5af7-492a-b84d-d2ef631bc91d",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"reject-order",
+								"ffb02847-5af7-492a-b84d-d2ef631bc91d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{customerAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/cancel-order/258ab92a-773f-4b8b-b59d-7211ae7f5a01",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"cancel-order",
+								"258ab92a-773f-4b8b-b59d-7211ae7f5a01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get processing order of current customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ik5ndXnhu4VuIFThuqVuIFRydW5nIiwicm9sZSI6IjNkMmMxODU5LTRlNGYtNGNmYS05ZWZiLWFmYmNkNmE3YTE3ZCIsInVzZXJJZCI6IjM5ZjhjNzY0LTRhYzEtNDA0NC1iODI4LTFiNDliM2QxZmJjOCIsIm5iZiI6MTY5MDI4MTQ4OCwiZXhwIjoxNjkwMjg1MDg4LCJpYXQiOjE2OTAyODE0ODh9.rwXCdO-7pwO1nzuZblZcwueqyHlz8bH1llFuFm0kSg0mF0341e9W_oapbmxXkhEwqdOaWHV0c9kYxMHswnigSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/current-customer/processing",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"current-customer",
+								"processing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get comfirm order of current customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ik5ndXnhu4VuIFThuqVuIFRydW5nIiwicm9sZSI6IjNkMmMxODU5LTRlNGYtNGNmYS05ZWZiLWFmYmNkNmE3YTE3ZCIsInVzZXJJZCI6IjM5ZjhjNzY0LTRhYzEtNDA0NC1iODI4LTFiNDliM2QxZmJjOCIsIm5iZiI6MTY5MDI4MTQ4OCwiZXhwIjoxNjkwMjg1MDg4LCJpYXQiOjE2OTAyODE0ODh9.rwXCdO-7pwO1nzuZblZcwueqyHlz8bH1llFuFm0kSg0mF0341e9W_oapbmxXkhEwqdOaWHV0c9kYxMHswnigSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/current-customer/confirm",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"current-customer",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get success order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/orders/success",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"orders",
+								"success"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet",
+			"item": [
+				{
+					"name": "payments momo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{customerAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailAddress\": \"123vn2000@gmail.com\",\r\n    \"phoneNumber\": \"01663578554\",\r\n    \"content\": \"thanh toan momo\",\r\n    \"amount\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44336/api/payments/momo",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"payments",
+								"momo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Momo Return",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44336/api/payments/momo/callback",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44336",
+							"path": [
+								"api",
+								"payments",
+								"momo",
+								"callback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "staffAccessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customerAccessToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
